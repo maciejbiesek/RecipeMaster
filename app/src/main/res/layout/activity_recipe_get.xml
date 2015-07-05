@@ -1,0 +1,151 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.maciej.recipemaster.RecipeGetActivity">
+
+    <ViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/animator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_title"
+                    android:layout_alignParentTop="true"
+                    style="@style/PrimaryText"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_description"
+                    android:layout_below="@+id/recipe_title"
+                    style="@style/SecondaryText"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginLeft="60dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_ingredients_title"
+                    android:text="@string/recipe_ingredients_title"
+                    android:layout_below="@+id/recipe_description"
+                    style="@style/PrimaryText"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_ingredients"
+                    android:layout_below="@+id/recipe_ingredients_title"
+                    style="@style/SecondaryText"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginLeft="60dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_preparing_title"
+                    android:text="@string/recipe_preparing_title"
+                    android:layout_below="@+id/recipe_ingredients"
+                    style="@style/PrimaryText"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_preparing"
+                    android:layout_below="@+id/recipe_preparing_title"
+                    style="@style/SecondaryText"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginLeft="60dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_images_title"
+                    android:text="@string/recipe_images_title"
+                    android:layout_below="@+id/recipe_preparing"
+                    style="@style/PrimaryText"
+                    android:layout_margin="20dp"/>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/recipe_images_title">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recipe_image1"
+                        android:scaleType="centerCrop"
+                        android:layout_alignParentLeft="true" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recipe_image2"
+                        android:scaleType="centerCrop"
+                        android:layout_toRightOf="@+id/recipe_image1" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recipe_image3"
+                        android:scaleType="centerCrop"
+                        android:layout_below="@+id/recipe_image1" />
+
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </ViewAnimator>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/footer">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fb_name"
+            style="@style/SecondaryText"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/fb_photo"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/fb_name"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

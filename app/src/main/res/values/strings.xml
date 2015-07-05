@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">RecipeMaster</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="facebook_app_id">863577597061875</string>
+    <string name="title_activity_recipe_get">Pizza Recipe!</string>
+    <string name="get_button_text">Get the recipe</string>
+    <string name="recipe_ingredients_title">Ingredients:</string>
+    <string name="recipe_preparing_title">Preparing:</string>
+    <string name="recipe_images_title">Images:</string>
+</resources>
