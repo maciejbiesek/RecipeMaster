@@ -1,15 +1,22 @@
 package com.example.maciej.recipemaster;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +40,7 @@ public class RecipeGetActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_get);
+        showActionBar();
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -42,7 +50,7 @@ public class RecipeGetActivity extends ActionBarActivity {
             // Log.e("DEBUG", userName + ", " + userPhotoUrl);
         }
         else {
-            userName = "You're not logged in";
+            userName = "You are not logged in";
         }
 
         bindFooter();
@@ -92,6 +100,9 @@ public class RecipeGetActivity extends ActionBarActivity {
         Picasso.with(this).load(recipe.getImages().get(1)).into(image2);
         Picasso.with(this).load(recipe.getImages().get(2)).into(image3);
 
+        image1.setOnClickListener(onClickListener);
+        image2.setOnClickListener(onClickListener);
+        image3.setOnClickListener(onClickListener);
     }
 
     public boolean isOnline() {
@@ -100,27 +111,63 @@ public class RecipeGetActivity extends ActionBarActivity {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_recipe_get, menu);
-        return true;
+    // MENU
+
+    private void showActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        View cView = getLayoutInflater().inflate(R.layout.get_recipe_menu, null);
+        ActionBar.LayoutParams layout = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
+        actionBar.setCustomView(cView, layout);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void clickEvent(View v) {
+        switch (v.getId()) {
+            case R.id.back: {
+                finish();
+                break;
+            }
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(final View v) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(RecipeGetActivity.this);
+
+            builder.setMessage(R.string.dialog_message)
+                    .setTitle(R.string.dialog_title)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ImageView image = (ImageView) findViewById(v.getId());
+                            image.buildDrawingCache();
+                            Bitmap bitmap = image.getDrawingCache();
+                            try {
+                                MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null); // bitmp, title, description
+                                Toast.makeText(RecipeGetActivity.this, "Obrazek zapisano", Toast.LENGTH_SHORT).show();
+                            }
+                            catch (Exception e) {
+                                Toast.makeText(RecipeGetActivity.this, "Wystąpił błąd", Toast.LENGTH_SHORT).show();
+                            }
+                            dialog.cancel();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+            builder.create().show();
+
+        }
+    };
 
 
 

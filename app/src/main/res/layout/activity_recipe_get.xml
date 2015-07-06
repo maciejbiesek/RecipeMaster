@@ -86,30 +86,39 @@
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/recipe_images_title">
 
                     <ImageView
                         android:layout_width="150dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
                         android:id="@+id/recipe_image1"
                         android:scaleType="centerCrop"
                         android:layout_alignParentLeft="true" />
 
                     <ImageView
                         android:layout_width="150dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
                         android:id="@+id/recipe_image2"
                         android:scaleType="centerCrop"
-                        android:layout_toRightOf="@+id/recipe_image1" />
+                        android:layout_toRightOf="@+id/recipe_image1"
+                        android:layout_alignParentRight="true"/>
 
                     <ImageView
                         android:layout_width="150dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
                         android:id="@+id/recipe_image3"
                         android:scaleType="centerCrop"
-                        android:layout_below="@+id/recipe_image1" />
-
+                        android:layout_below="@+id/recipe_image1"
+                        android:layout_alignParentLeft="true"/>
 
 
                 </RelativeLayout>

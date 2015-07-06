@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_keyboard_backspace_white_36dp"
+        android:onClick="clickEvent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text"
+        style="@style/HeaderText"
+        android:layout_centerVertical="true"
+        android:text="@string/get_recipe_menu_text"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/back" />
+
+</RelativeLayout>

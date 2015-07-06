@@ -7,4 +7,5 @@
     <color name="divider">#B6B6B6</color>
     <color name="windowBackground">#fff</color>
     <color name="footer">#f8f5f5</color>
+    <color name="headerColor">#fff</color>
 </resources>

@@ -10,4 +10,8 @@
     <string name="recipe_ingredients_title">Ingredients:</string>
     <string name="recipe_preparing_title">Preparing:</string>
     <string name="recipe_images_title">Images:</string>
+    <string name="get_recipe_menu_text">Pizza recipe!</string>
+
+    <string name="dialog_message">Czy chcesz zapisać obrazek?"</string>
+    <string name="dialog_title">Zapisywanie obrazka</string>
 </resources>

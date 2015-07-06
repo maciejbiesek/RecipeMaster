@@ -1,6 +1,7 @@
 package com.example.maciej.recipemaster;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +32,6 @@ public class MainActivity extends ActionBarActivity {
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
-    private AccessTokenTracker accessTokenTracker;
     private Profile user;
 
     @Override
@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_main);
+        showActionBar();
 
         Button getButton = (Button) findViewById(R.id.get_button);
         getButton.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Toast.makeText(MainActivity.this, "Logowanie pomyślne!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "You have successfully logged in!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -88,5 +89,19 @@ public class MainActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    // MENU
+
+    private void showActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        View cView = getLayoutInflater().inflate(R.layout.main_menu, null);
+        ActionBar.LayoutParams layout = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
+        actionBar.setCustomView(cView, layout);
     }
 }
