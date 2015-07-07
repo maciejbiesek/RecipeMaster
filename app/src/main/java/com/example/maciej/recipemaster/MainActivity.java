@@ -1,6 +1,8 @@
 package com.example.maciej.recipemaster;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +36,12 @@ import static com.example.maciej.recipemaster.Constants.*;
 public class MainActivity extends ActionBarActivity {
 
     private LoginButton loginButton;
+    private ImageButton getButton;
+    private ImageView getButtonLabel;
+    private ImageView loginButtonLabel;
     private CallbackManager callbackManager;
     private Profile user;
+    private boolean isLayoutAlpha = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +51,20 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         showActionBar();
 
-        Button getButton = (Button) findViewById(R.id.get_button);
-        getButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startGetActivity();
-            }
-        });
+        getButtonLabel = (ImageView) findViewById(R.id.get_button_label);
+        getButtonLabel.setVisibility(View.INVISIBLE);
+
+        getButton = (ImageButton) findViewById(R.id.get_button);
+        getButton.setVisibility(View.INVISIBLE);
+        getButton.setOnClickListener(onClickListener);
+
+        loginButtonLabel = (ImageView) findViewById(R.id.login_button_label);
+        loginButtonLabel.setVisibility(View.INVISIBLE);
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        loginButton.setVisibility(View.INVISIBLE);
+        loginButton.setBackgroundResource(R.drawable.fb_button_ico);
 
         loginButton.setReadPermissions("public_profile");
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -71,7 +85,45 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
 
+        ImageButton optionsButton = (ImageButton) findViewById(R.id.options);
+        optionsButton.setOnClickListener(onClickListener);
+
     }
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.get_button: {
+                    startGetActivity();
+                    break;
+                }
+                case R.id.options: {
+                    ImageView backgroundImage = (ImageView) findViewById(R.id.background_image);
+                    ImageButton button = (ImageButton) view;
+                    if (!isLayoutAlpha) {
+                        backgroundImage.setAlpha(0.30f);
+                        button.setImageResource(R.drawable.cancel);
+                        getButtonLabel.setVisibility(View.VISIBLE);
+                        getButton.setVisibility(View.VISIBLE);
+                        loginButtonLabel.setVisibility(View.VISIBLE);
+                        loginButton.setVisibility(View.VISIBLE);
+                        isLayoutAlpha = true;
+                    }
+                    else {
+                        backgroundImage.setAlpha(1f);
+                        button.setImageResource(R.drawable.plus);
+                        getButtonLabel.setVisibility(View.INVISIBLE);
+                        getButton.setVisibility(View.INVISIBLE);
+                        loginButtonLabel.setVisibility(View.INVISIBLE);
+                        loginButton.setVisibility(View.INVISIBLE);
+                        isLayoutAlpha = false;
+                    }
+                    break;
+                }
+            }
+        }
+    };
 
     private void startGetActivity() {
         Intent intent = new Intent(this, RecipeGetActivity.class);

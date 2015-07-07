@@ -5,7 +5,7 @@
     <color name="text">#000000</color>
 
     <color name="divider">#B6B6B6</color>
-    <color name="windowBackground">#fff</color>
+    <color name="windowBackground">#FFFFFF</color>
     <color name="footer">#f8f5f5</color>
-    <color name="headerColor">#fff</color>
+    <color name="headerColor">#FFFFFF</color>
 </resources>

@@ -33,7 +33,7 @@
 
         <activity
             android:name=".RecipeGetActivity"
-            android:label="@string/title_activity_recipe_get" >
+            android:label="RecipeGetActivity" >
         </activity>
     </application>
 

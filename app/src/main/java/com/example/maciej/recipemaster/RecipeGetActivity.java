@@ -126,7 +126,7 @@ public class RecipeGetActivity extends ActionBarActivity {
         actionBar.setCustomView(cView, layout);
     }
 
-    private void clickEvent(View v) {
+    public void clickEvent(View v) {
         switch (v.getId()) {
             case R.id.back: {
                 finish();
