@@ -84,48 +84,20 @@
                     style="@style/PrimaryText"
                     android:layout_margin="20dp"/>
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                <com.example.maciej.recipemaster.ExpandableHeightGridView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/images_grid"
+                    android:layout_below="@+id/recipe_images_title"
+                    android:gravity="center"
+                    android:numColumns="2"
                     android:layout_marginBottom="100dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/recipe_images_title">
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="10dp"
-                        android:id="@+id/recipe_image1"
-                        android:scaleType="centerCrop"
-                        android:layout_alignParentLeft="true" />
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:id="@+id/recipe_image2"
-                        android:scaleType="centerCrop"
-                        android:layout_toRightOf="@+id/recipe_image1"
-                        android:layout_alignParentRight="true"/>
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:id="@+id/recipe_image3"
-                        android:scaleType="centerCrop"
-                        android:layout_below="@+id/recipe_image1"
-                        android:layout_alignParentLeft="true"/>
-
-
-                </RelativeLayout>
-
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:horizontalSpacing="20dp"
+                    android:verticalSpacing="20dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"/>
 
             </RelativeLayout>
-
         </ScrollView>
 
     </ViewAnimator>

@@ -17,10 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewAnimator;
@@ -70,7 +67,7 @@ public class RecipeGetActivity extends ActionBarActivity {
         TextView fbName = (TextView) findViewById(R.id.fb_name);
         ImageView fbPhoto = (ImageView) findViewById(R.id.fb_photo);
 
-        fbName.setText(userInfo);
+        fbName.setText(userName);
         Picasso.with(this).load(userPhotoUrl).into(fbPhoto);
     }
 
@@ -79,6 +76,9 @@ public class RecipeGetActivity extends ActionBarActivity {
         TextView descriptionText = (TextView) findViewById(R.id.recipe_description);
         TextView ingredientsText = (TextView) findViewById(R.id.recipe_ingredients);
         TextView preparingText = (TextView) findViewById(R.id.recipe_preparing);
+        ImageView image1 = (ImageView) findViewById(R.id.recipe_image1);
+        ImageView image2 = (ImageView) findViewById(R.id.recipe_image2);
+        ImageView image3 = (ImageView) findViewById(R.id.recipe_image3);
 
         titleText.setText(recipe.getTitle() + ":");
         descriptionText.setText(recipe.getDescription());
@@ -95,18 +95,17 @@ public class RecipeGetActivity extends ActionBarActivity {
         }
         preparingText.setText(preparing);
 
-        initializeGrid(recipe);
+
+        Picasso.with(this).load(recipe.getImages().get(0)).into(image1);
+        Picasso.with(this).load(recipe.getImages().get(1)).into(image2);
+        Picasso.with(this).load(recipe.getImages().get(2)).into(image3);
+
+        image1.setOnClickListener(onClickListener);
+        image2.setOnClickListener(onClickListener);
+        image3.setOnClickListener(onClickListener);
     }
 
-    private void initializeGrid(Recipe recipe) {
-        ExpandableHeightGridView grid = (ExpandableHeightGridView) findViewById(R.id.images_grid);
-        grid.setExpanded(true);
-        ImageAdapter adapter = new ImageAdapter(this, recipe.getImages());
-        grid.setAdapter(adapter);
-        grid.setOnItemClickListener(onClickListener);
-    }
-
-    private boolean isOnline() {
+    public boolean isOnline() {
         ConnectivityManager connMgr = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         return (networkInfo != null && networkInfo.isConnected());
@@ -126,7 +125,7 @@ public class RecipeGetActivity extends ActionBarActivity {
         actionBar.setCustomView(cView, layout);
     }
 
-    private void clickEvent(View v) {
+    public void clickEvent(View v) {
         switch (v.getId()) {
             case R.id.back: {
                 finish();
@@ -135,9 +134,9 @@ public class RecipeGetActivity extends ActionBarActivity {
         }
     }
 
-    private AdapterView.OnItemClickListener onClickListener = new AdapterView.OnItemClickListener() {
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> adapterView, final View view, int i, long l) {
+        public void onClick(final View v) {
             AlertDialog.Builder builder = new AlertDialog.Builder(RecipeGetActivity.this);
 
             builder.setMessage(R.string.dialog_message)
@@ -145,8 +144,7 @@ public class RecipeGetActivity extends ActionBarActivity {
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            RelativeLayout relativeLayout = (RelativeLayout) view;
-                            ImageView image = (ImageView) relativeLayout.getChildAt(0);
+                            ImageView image = (ImageView) findViewById(v.getId());
                             image.buildDrawingCache();
                             Bitmap bitmap = image.getDrawingCache();
                             try {
@@ -167,6 +165,7 @@ public class RecipeGetActivity extends ActionBarActivity {
                     });
 
             builder.create().show();
+
         }
     };
 
